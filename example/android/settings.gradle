@@ -1,0 +1,5 @@
+rootProject.name = 'example'
+include ':react-native-story-share'
+project(':react-native-story-share').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-story-share/android')
+
+include ':app'
