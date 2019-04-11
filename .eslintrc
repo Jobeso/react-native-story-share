@@ -1,0 +1,21 @@
+{
+    "extends": ["airbnb", "prettier", "prettier/react"],
+    "parser": "babel-eslint",
+    "plugins": ["react", "jsx-a11y", "import", "prettier"],
+    "rules": {
+        "import/no-extraneous-dependencies": 0,
+        "func-names": 0,
+        "import/extensions": 0,
+        "import/no-named-as-default": 0,
+        "import/no-named-as-default-member": 0,
+        "import/no-unresolved": 1,
+        "jsx-a11y/no-static-element-interactions": 0,
+        "no-extra-boolean-cast": 0,
+        "no-plusplus": 0,
+        "no-sequences": 0,
+        "no-script-url": 0,
+        "no-unused-vars": 1,
+        "react/no-did-update-set-state": 0,
+        "spaced-comment": 0
+    }
+}

@@ -1,0 +1,14 @@
+{
+    "bracketSpacing": true,
+    "insertPragma": false,
+    "jsxBracketSameLine": false,
+    "parser": "babylon",
+    "printWidth": 80,
+    "proseWrap": "always",
+    "requirePragma": false,
+    "semi": false,
+    "singleQuote": true,
+    "tabWidth": 2,
+    "trailingComma": "es5",
+    "useTabs": false
+  }
