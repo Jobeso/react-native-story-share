@@ -1,14 +1,14 @@
 # react-native-story-share
 
-Currently only supports sharing of base64 images
+Share your images to instagram stories.
 
 ## Getting started
 
-`$ npm install react-native-story-share --save`
+`$ yarn add react-native-story-share`
 
 or
 
-`$ yarn add react-native-story-share`
+`$ npm install react-native-story-share --save`
 
 ## Installation
 1. Either choose `Mostly automatic installation` or `Manual installation`
@@ -85,9 +85,15 @@ RNStoryShare.isInstagramAvailable()
 	.catch(e => console.log(e));
 
 RNStoryShare.share({
-	type: RNStoryShare.Types.BASE64,
+	type: RNStoryShare.BASE64,
 	attributionLink: 'https://myproject.com',
 	backgroundAsset: '',
 	stickerAsset: '', // currently iOS only
 });
 ```
+
+## Roadmap
+- android sticker support
+- snapchat support
+- file path support
+- deprecate fileprovider solution on android
