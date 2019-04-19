@@ -3,10 +3,8 @@ Pod::Spec.new do |s|
   s.name         = "RNStoryShare"
   s.version      = "1.0.0"
   s.summary      = "RNStoryShare"
-  s.description  = <<-DESC
-                  RNStoryShare
-                   DESC
-  s.homepage     = ""
+  s.description  = "Share your images to instagram stories."
+  s.homepage     = "https://github.com/Jobeso/react-native-story-share"
   s.license      = "MIT"
   # s.license      = { :type => "MIT", :file => "FILE_LICENSE" }
   s.author             = { "author" => "author@domain.cn" }
