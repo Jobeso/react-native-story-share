@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "run:android": "react-native run-android --appIdSuffix \"debug\"",
+    "run:android": "react-native run-android",
     "run:packager": "node node_modules/react-native/local-cli/cli.js start",
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest"
@@ -11,7 +11,7 @@
   "dependencies": {
     "react": "16.8.3",
     "react-native": "0.59.4",
-    "react-native-story-share": "^0.1.0"
+    "react-native-story-share": "^0.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.4.3",
