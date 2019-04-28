@@ -56,7 +56,7 @@ public class RNStoryShareModule extends ReactContextBaseJavaModule {
   }
 
   private String getFilePath(String imageName) {
-    return Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/" + imageName;
+    return this.getReactApplicationContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES) + "/" + imageName;
   }
 
   private static File getSavedImageFile(final String imageData, final String imagePath) {
