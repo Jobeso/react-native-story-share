@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Linking, Button, Text, View } from "react-native";
+import { Button, Text, View } from "react-native";
 import RNStoryShare from "react-native-story-share";
 
 const base64Background =
@@ -14,7 +14,18 @@ export const App = () => {
   const onPressShareInstagram = () => {
     setError(null);
 
-    RNStoryShare.share({
+    RNStoryShare.shareToInstagram({
+      backgroundAsset: base64Background,
+      stickerAsset: base64Sticker,
+      attributionLink: "",
+      type: RNStoryShare.BASE64
+    }).catch(setError);
+  };
+
+  const onPressShareSnapchat = () => {
+    setError(null);
+
+    RNStoryShare.shareToSnapchat({
       backgroundAsset: base64Background,
       stickerAsset: base64Sticker,
       attributionLink: "",
@@ -40,6 +51,11 @@ export const App = () => {
         </Text>
       </Text>
       <Button title="Share to Instagram" onPress={onPressShareInstagram} />
+      <Button
+        title="Share to Snapchat"
+        onPress={onPressShareSnapchat}
+        style={{ marginTop: 24 }}
+      />
       <Text style={{ marginTop: 48 }}>
         {error ? `error: ${error.message}` : null}
       </Text>

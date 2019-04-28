@@ -28,9 +28,16 @@ android {
 
 repositories {
     mavenCentral()
+    maven {
+       url "https://storage.googleapis.com/snap-kit-build/maven"
+   }
 }
 
 dependencies {
-    compile 'com.facebook.react:react-native:+'
+    implementation('com.facebook.react:react-native:+')
+    implementation([
+           'com.snapchat.kit.sdk:creative:1.1.4',
+           'com.snapchat.kit.sdk:core:1.1.4'
+   ])
 }
   

@@ -46,6 +46,14 @@ or
 
 ## Integration
 
+### Android
+
+add snap client id
+<meta-data android:name="com.snapchat.kit.sdk.clientId" android:value="your app’s client id" />
+
+add snap sdk
+maven { url "https://storage.googleapis.com/snap-kit-build/maven" }
+
 ### iOS
 
 #### Swift
