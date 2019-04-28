@@ -88,12 +88,11 @@ RNStoryShare.share({
 	type: RNStoryShare.BASE64,
 	attributionLink: 'https://myproject.com',
 	backgroundAsset: '',
-	stickerAsset: '', // currently iOS only
+	stickerAsset: '',
 });
 ```
 
 ## Roadmap
-- android sticker support
 - snapchat support
 - file path support
 - deprecate fileprovider solution on android

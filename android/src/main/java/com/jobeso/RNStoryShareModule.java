@@ -97,8 +97,8 @@ public class RNStoryShareModule extends ReactContextBaseJavaModule {
     return file;
   }
 
-  private Uri legacy_getUriForBase64Image(String base64ImageData){
-    String backgroundAssetPath = getFilePath(DEFAULT_IMAGE_NAME);
+  private Uri legacy_getUriForBase64Image(String base64ImageData, String imageName){
+    String backgroundAssetPath = getFilePath(imageName);
     String ct = base64ImageData.substring(base64ImageData.indexOf(",") + 1);
     File file = getSavedImageFile(ct, backgroundAssetPath);
     Activity activity = getCurrentActivity();
@@ -108,6 +108,10 @@ public class RNStoryShareModule extends ReactContextBaseJavaModule {
             packageName + ".provider", file);
 
     return imageUri;
+  }
+
+  private Uri legacy_getUriForBase64Image(String base64ImageData){
+    return legacy_getUriForBase64Image(base64ImageData, DEFAULT_IMAGE_NAME);
   }
 
   private void shareToInstagram(String backgroundAsset, String stickerAsset, String attributionLink, Promise promise){
@@ -126,7 +130,11 @@ public class RNStoryShareModule extends ReactContextBaseJavaModule {
       }
 
       if(stickerAsset != null){
-        Uri stickerAssetUri = Uri.parse(stickerAsset);
+        if(backgroundAsset == null){
+          intent.setType(MEDIA_TYPE_IMAGE);
+        }
+
+        Uri stickerAssetUri = legacy_getUriForBase64Image(stickerAsset, "stickerAsset.png");
 
         intent.putExtra("interactive_asset_uri", stickerAssetUri);
         activity.grantUriPermission(
