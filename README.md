@@ -81,6 +81,10 @@ $(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)
 ...
 ```
 
+#### snapchat
++ add `SCSDKClientId` to your `Info.plist`
++ add `pod "SnapSDK"` to your Podfile with `use_frameworks!`
+
 ## Usage
 
 ```javascript
