@@ -16,6 +16,8 @@
         "no-script-url": 0,
         "no-unused-vars": 1,
         "react/no-did-update-set-state": 0,
-        "spaced-comment": 0
+        "spaced-comment": 0,
+        "import/prefer-default-export": 0,
+        "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
     }
 }
