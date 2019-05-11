@@ -8,10 +8,6 @@ target 'example' do
   # Pods for example
   pod 'SnapSDK', :subspecs => ['SCSDKCreativeKit']
 
-  pod 'RNViewShot', :path => '../node_modules/react-native-view-shot'
-
-  pod 'ReactNativePermissions', :path => '../node_modules/react-native-permissions'
-
 end
 
 post_install do |installer|

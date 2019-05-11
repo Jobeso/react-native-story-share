@@ -19,6 +19,8 @@
         "spaced-comment": 0,
         "import/prefer-default-export": 0,
         "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
-        "no-underscore-dangle": 0
+        "no-underscore-dangle": 0,
+        "lines-between-class-members": 0,
+        "react/sort-comp": 0,
     }
 }

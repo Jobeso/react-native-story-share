@@ -4281,9 +4281,9 @@ react-native-permissions@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/react-native-permissions/-/react-native-permissions-1.1.1.tgz#4876004681ff8556454613d85249b01baff9b35b"
 
-react-native-story-share@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/react-native-story-share/-/react-native-story-share-0.2.0.tgz#c8bd6a2e82f5adfd67d27582e8bb7b2c9e6ae280"
+react-native-story-share@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/react-native-story-share/-/react-native-story-share-0.3.0.tgz#df2d65fb8172a2bd3c2499854c36c2f9d35ce883"
 
 react-native-view-shot@^2.6.0:
   version "2.6.0"
