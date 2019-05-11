@@ -110,20 +110,20 @@ $(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)
 import RNStoryShare from "react-native-story-share";
 
 RNStoryShare.isInstagramAvailable()
-	.then(isAvailable => {
+  .then(isAvailable => {
 
-		if(isAvailable){
-			RNStoryShare.shareToInstagram({
-				type: RNStoryShare.BASE64, // or RNStoryShare.FILE
-				attributionLink: 'https://myproject.com',
-				backgroundAsset: 'data:image/png;base64,iVBO...',
-				stickerAsset: 'data:image/png;base64,iVBO...',
-				backgroundBottomColor: '#f44162',
-				backgroundTopColor: '#f4a142'
-			});
-		}
-	})
-	.catch(e => console.log(e));
+    if(isAvailable){
+      RNStoryShare.shareToInstagram({
+        type: RNStoryShare.BASE64, // or RNStoryShare.FILE
+        attributionLink: 'https://myproject.com',
+        backgroundAsset: 'data:image/png;base64,iVBO...',
+        stickerAsset: 'data:image/png;base64,iVBO...',
+        backgroundBottomColor: '#f44162',
+        backgroundTopColor: '#f4a142'
+      });
+    }
+  })
+  .catch(e => console.log(e));
 ```
 
 ### Share To Snapchat
@@ -131,22 +131,22 @@ RNStoryShare.isInstagramAvailable()
 import RNStoryShare from "react-native-story-share";
 
 RNStoryShare.isSnapchatAvailable()
-	.then(isAvailable => {
+  .then(isAvailable => {
 
-		if(isAvailable){
-			RNStoryShare.shareToSnapchat({
-				type: RNStoryShare.BASE64, // or RNStoryShare.FILE
-				attributionLink: 'https://myproject.com',
-				backgroundAsset: 'data:image/png;base64,iVBO...',
-				stickerAsset: 'data:image/png;base64,iVBO...',
-				stickerOptions: {
-					height: 900,
-					width: 900
-				}
-			});
-		}
-	})
-	.catch(e => console.log(e));
+    if(isAvailable){
+      RNStoryShare.shareToSnapchat({
+        type: RNStoryShare.BASE64, // or RNStoryShare.FILE
+        attributionLink: 'https://myproject.com',
+        backgroundAsset: 'data:image/png;base64,iVBO...',
+        stickerAsset: 'data:image/png;base64,iVBO...',
+        stickerOptions: {
+          height: 900,
+          width: 900
+        }
+      });
+    }
+  })
+  .catch(e => console.log(e));
 
 ```
 
@@ -160,6 +160,12 @@ RNStoryShare.isSnapchatAvailable()
 | FILE | "file" |
 
 ### Methods
+
+#### `isInstagramAvailable(): Promise<boolean>`
+Return a boolean indicating if Instagram is available on the phone.
+
+#### `isSnapchatAvailable(): Promise<boolean>`
+Return a boolean indicating if Snapchat is available on the phone.
 
 #### `shareToInstagram(config: ShareConfigObject): Promise<void>`
 ```
