@@ -1,6 +1,13 @@
 # react-native-story-share
 
-Share your images to instagram stories.
+Share your images to instagram and snapchat stories.
+
+| OS | Type | Supported |
+|---|---|:---:|
+| iOS | BASE64 | YES |
+|  | FILE | YES |
+| Android | BASE64 | YES |
+|  | FILE | NO |
 
 ## Getting started
 
@@ -49,11 +56,11 @@ or
 ### Android
 
  + add snap client id
-```
+```diff
 <application ...>
    ...
 
-   <meta-data android:name="com.snapchat.kit.sdk.clientId" android:value="your app’s client id" />
++   <meta-data android:name="com.snapchat.kit.sdk.clientId" android:value="your app’s client id" />
 
    ...
 </application>
@@ -80,13 +87,13 @@ $(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)
 
 + add `instagram-stories` and `snapchat` to the `LSApplicationQueriesSchemes` key in your app's Info.plist.
 
-```
+```diff
 ...
 <key>LSApplicationQueriesSchemes</key>
 <array>
 	...
-	<string>instagram-stories</string>
-	<string>snapchat</string>
++	<string>instagram-stories</string>
++	<string>snapchat</string>
 </array>
 ...
 ```
@@ -94,26 +101,94 @@ $(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)
 #### snapchat
 + add `SCSDKClientId` to your `Info.plist`
 + add `pod 'SnapSDK', :subspecs => ['SCSDKCreativeKit']` to your Podfile with `use_frameworks!`
++ *optional* add [build script](https://docs.snapchat.com/docs/submitting) to reduce bundle size
 
 ## Usage
 
+### Share To Instagram
 ```javascript
 import RNStoryShare from "react-native-story-share";
 
 RNStoryShare.isInstagramAvailable()
 	.then(isAvailable => {
-		// your code
+
+		if(isAvailable){
+			RNStoryShare.shareToInstagram({
+				type: RNStoryShare.BASE64, // or RNStoryShare.FILE
+				attributionLink: 'https://myproject.com',
+				backgroundAsset: 'data:image/png;base64,iVBO...',
+				stickerAsset: 'data:image/png;base64,iVBO...',
+				backgroundBottomColor: '#f44162',
+				backgroundTopColor: '#f4a142'
+			});
+		}
+	})
+	.catch(e => console.log(e));
+```
+
+### Share To Snapchat
+```javascript
+import RNStoryShare from "react-native-story-share";
+
+RNStoryShare.isSnapchatAvailable()
+	.then(isAvailable => {
+
+		if(isAvailable){
+			RNStoryShare.shareToSnapchat({
+				type: RNStoryShare.BASE64, // or RNStoryShare.FILE
+				attributionLink: 'https://myproject.com',
+				backgroundAsset: 'data:image/png;base64,iVBO...',
+				stickerAsset: 'data:image/png;base64,iVBO...',
+				stickerOptions: {
+					height: 900,
+					width: 900
+				}
+			});
+		}
 	})
 	.catch(e => console.log(e));
 
-RNStoryShare.share({
-	type: RNStoryShare.BASE64,
-	attributionLink: 'https://myproject.com',
-	backgroundAsset: ...,
-	stickerAsset: ...,
-});
 ```
 
+## API
+
+### Constants
+
+| Name | Value |
+|---|---|
+| BASE64 | "base64" |
+| FILE | "file" |
+
+### Methods
+
+#### `shareToInstagram(config: ShareConfigObject): Promise<void>`
+```
+type ShareConfigObject = {
+  type: "base64" || "file",
+	attributionLink: string,
+	backgroundAsset: string,
+	stickerAsset: string,
+	stickerOptions: {
+		height: integer,
+		width: integer
+	}
+}
+```
+Shares a file or base64 image as background, sticker or both to Instagram. The background colors are only applyed when no background asset is set.
+
+#### `shareToSnapchat(config: ShareConfigObject): Promise<void>`
+```
+type ShareConfigObject = {
+  type: "base64" || "file",
+	attributionLink: string,
+	backgroundAsset: string,
+	stickerAsset: string,
+	backgroundBottomColor: string,
+	backgroundTopColor: string
+}
+```
+Shares a file or base64 image as background, sticker or both to Snapchat. `stickerOptions` are only supported by Android.
+
 ## Roadmap
-- file path support (Android)
-- support video
+- Android file path support
+- Video support
