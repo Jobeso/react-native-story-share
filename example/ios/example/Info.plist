@@ -58,5 +58,7 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>SCSDKClientId</key>
+	<string>01f13186-6b89-4261-a238-a1c3caa625f3</string>
 </dict>
 </plist>
