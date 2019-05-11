@@ -46,6 +46,24 @@ or
 
 ## Integration
 
+### Android
+
+ + add snap client id
+```
+<application ...>
+   ...
+
+   <meta-data android:name="com.snapchat.kit.sdk.clientId" android:value="your app’s client id" />
+
+   ...
+</application>
+```
+
++ add snap sdk
+```
+maven { url "https://storage.googleapis.com/snap-kit-build/maven" }
+```
+
 ### iOS
 
 #### Swift
@@ -73,6 +91,10 @@ $(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)
 ...
 ```
 
+#### snapchat
++ add `SCSDKClientId` to your `Info.plist`
++ add `pod 'SnapSDK', :subspecs => ['SCSDKCreativeKit']` to your Podfile with `use_frameworks!`
+
 ## Usage
 
 ```javascript
@@ -87,12 +109,11 @@ RNStoryShare.isInstagramAvailable()
 RNStoryShare.share({
 	type: RNStoryShare.BASE64,
 	attributionLink: 'https://myproject.com',
-	backgroundAsset: '',
-	stickerAsset: '',
+	backgroundAsset: ...,
+	stickerAsset: ...,
 });
 ```
 
 ## Roadmap
-- snapchat support
-- file path support
-- deprecate fileprovider solution on android
+- file path support (Android)
+- support video

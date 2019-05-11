@@ -13,7 +13,11 @@
     return YES;
 }
 
-RCT_EXTERN_METHOD(share:(NSDictionary *)config
+RCT_EXTERN_METHOD(shareToInstagram:(NSDictionary *)config
+                  resolver: (RCTPromiseResolveBlock)resolve
+                  rejecter: (RCTPromiseRejectBlock)reject)
+
+RCT_EXTERN_METHOD(shareToSnapchat:(NSDictionary *)config
                   resolver: (RCTPromiseResolveBlock)resolve
                   rejecter: (RCTPromiseRejectBlock)reject)
 

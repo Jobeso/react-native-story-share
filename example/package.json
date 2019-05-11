@@ -9,9 +9,12 @@
     "test": "jest"
   },
   "dependencies": {
+    "ramda": "^0.26.1",
     "react": "16.8.3",
     "react-native": "0.59.4",
-    "react-native-story-share": "^0.2.0"
+    "react-native-permissions": "^1.1.1",
+    "react-native-story-share": "^0.2.0",
+    "react-native-view-shot": "^2.6.0"
   },
   "devDependencies": {
     "@babel/core": "^7.4.3",

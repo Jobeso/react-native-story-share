@@ -1,0 +1,35 @@
+PODS:
+  - React (0.11.0):
+    - React/Core (= 0.11.0)
+  - React/Core (0.11.0)
+  - ReactNativePermissions (1.1.1):
+    - React
+  - RNViewShot (2.6.0):
+    - React
+  - SnapSDK/SCSDKCreativeKit (1.3.1)
+
+DEPENDENCIES:
+  - ReactNativePermissions (from `../node_modules/react-native-permissions`)
+  - RNViewShot (from `../node_modules/react-native-view-shot`)
+  - SnapSDK/SCSDKCreativeKit
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - React
+    - SnapSDK
+
+EXTERNAL SOURCES:
+  ReactNativePermissions:
+    :path: "../node_modules/react-native-permissions"
+  RNViewShot:
+    :path: "../node_modules/react-native-view-shot"
+
+SPEC CHECKSUMS:
+  React: ab1a2e21deb34965c38328d5ec40cc7d12c6050a
+  ReactNativePermissions: 9f2d9c45c98800795e6c2ed330e25d11a66a8169
+  RNViewShot: fdf9a64f0621ebc4e7c3392a10d2ffb70a7faee4
+  SnapSDK: be510aaabbfa7ab0142b53770f2e79c6c6b363e6
+
+PODFILE CHECKSUM: 864f37b316310d92de59018a0750729a609768a8
+
+COCOAPODS: 1.5.3

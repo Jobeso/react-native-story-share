@@ -2,6 +2,8 @@
   package="com.example">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
       android:name=".MainApplication"
@@ -21,6 +23,10 @@
         </intent-filter>
       </activity>
       <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
+
+      <meta-data android:name="com.snapchat.kit.sdk.clientId" android:value="01f13186-6b89-4261-a238-a1c3caa625f3" />
+
+
     </application>
 
 </manifest>
