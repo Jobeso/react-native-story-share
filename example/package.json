@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
+    "postinstall": "rm -rf node_modules/react-native-story-share/example",
     "run:android": "react-native run-android",
     "run:packager": "node node_modules/react-native/local-cli/cli.js start",
     "start": "node node_modules/react-native/local-cli/cli.js start",
@@ -13,7 +14,7 @@
     "react": "16.8.3",
     "react-native": "0.59.4",
     "react-native-permissions": "^1.1.1",
-    "react-native-story-share": "^0.3.0",
+    "react-native-story-share": "file:..",
     "react-native-view-shot": "^2.6.0"
   },
   "devDependencies": {
