@@ -19,10 +19,12 @@ import com.snapchat.kit.sdk.creative.api.SnapCreativeKitApi;
 import com.snapchat.kit.sdk.creative.exceptions.SnapMediaSizeException;
 import com.snapchat.kit.sdk.creative.media.SnapMediaFactory;
 import com.snapchat.kit.sdk.creative.media.SnapPhotoFile;
+import com.snapchat.kit.sdk.creative.media.SnapVideoFile;
 import com.snapchat.kit.sdk.creative.media.SnapSticker;
 import com.snapchat.kit.sdk.creative.models.SnapContent;
 import com.snapchat.kit.sdk.creative.models.SnapLiveCameraContent;
 import com.snapchat.kit.sdk.creative.models.SnapPhotoContent;
+import com.snapchat.kit.sdk.creative.models.SnapVideoContent;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -47,6 +49,8 @@ public class RNStoryShareModule extends ReactContextBaseJavaModule {
   private static final String ERROR_NO_PERMISSIONS = "Permissions Missing";
   private static final String TYPE_ERROR = "Type Error";
   private static final String MEDIA_TYPE_IMAGE = "image/*";
+  private static final String PHOTO = "photo";
+  private static final String VIDEO = "video";
 
   private static final String instagramScheme = "com.instagram.android";
   private static final String snapchatScheme = "com.snapchat.android";
@@ -289,16 +293,30 @@ public class RNStoryShareModule extends ReactContextBaseJavaModule {
     }
   }
 
-  private void _shareToSnapchat(@Nullable File backgroundFile, @Nullable File stickerFile, @Nullable ReadableMap stickerOptions, @Nullable String attributionLink, Promise promise){
+  private void _shareToSnapchat(
+      @Nullable File backgroundFile,
+      @Nullable File stickerFile,
+      @Nullable ReadableMap stickerOptions,
+      @Nullable String attributionLink,
+      @Nullable String captionText,
+      String media,
+      Promise promise
+  ) {
     try {
       Activity activity = getCurrentActivity();
       SnapMediaFactory snapMediaFactory = SnapCreative.getMediaFactory(activity);
       SnapContent snapContent;
       SnapCreativeKitApi snapCreativeKitApi = SnapCreative.getApi(activity);
 
-      if(backgroundFile != null){
-        SnapPhotoFile photoFile = snapMediaFactory.getSnapPhotoFromFile(backgroundFile);
-        snapContent = new SnapPhotoContent(photoFile);
+      if (backgroundFile != null) {
+          if (media.equals(PHOTO)) {
+            SnapPhotoFile photoFile = snapMediaFactory.getSnapPhotoFromFile(backgroundFile);
+            snapContent = new SnapPhotoContent(photoFile);
+          } else {
+            SnapVideoFile videoFile = snapMediaFactory.getSnapVideoFromFile(backgroundFile);
+            snapContent = new SnapVideoContent(videoFile);
+          }
+
       } else {
         snapContent = new SnapLiveCameraContent();
       }
@@ -326,6 +344,10 @@ public class RNStoryShareModule extends ReactContextBaseJavaModule {
         snapContent.setAttachmentUrl(attributionLink);
       }
 
+      if (captionText != null){
+        snapContent.setCaptionText(captionText);
+      }
+
       snapCreativeKitApi.send(snapContent);
       promise.resolve(SUCCESS);
     } catch (SnapMediaSizeException e) {
@@ -342,12 +364,18 @@ public class RNStoryShareModule extends ReactContextBaseJavaModule {
       String stickerAsset = config.hasKey("stickerAsset") ? config.getString("stickerAsset") : null;
       ReadableMap stickerOptions = config.hasKey("stickerOptions") ? config.getMap("stickerOptions") : null;
       String attributionLink = config.hasKey("attributionLink") ? config.getString("attributionLink") : null;
+      String captionText = config.hasKey("captionText") ? config.getString("captionText") : null;
       String type = config.hasKey("type") ? config.getString("type") : FILE;
+      String media = config.hasKey("media") ? config.getString("media") : PHOTO;
 
       File backgroundFile = null;
       File stickerFile = null;
 
-      if(!type.equals(BASE64) ){
+      if(!type.equals(BASE64) && !type.equals(FILE)){
+        throw new Error(ERROR_TYPE_NOT_SUPPORTED);
+      }
+
+      if (!media.equals(PHOTO) && !media.equals(VIDEO)) {
         throw new Error(ERROR_TYPE_NOT_SUPPORTED);
       }
 
@@ -356,7 +384,11 @@ public class RNStoryShareModule extends ReactContextBaseJavaModule {
       }
 
       if(backgroundAsset != null){
-        backgroundFile = getFileFromBase64String(backgroundAsset);
+        if (type.equals(BASE64)){
+          backgroundFile = getFileFromBase64String(backgroundAsset);
+        } else {
+          backgroundFile = new File(backgroundAsset);
+        }
 
         if(backgroundFile == null){
           throw new Error("Could not create file from Base64 in RNStoryShare");
@@ -371,7 +403,7 @@ public class RNStoryShareModule extends ReactContextBaseJavaModule {
         }
       }
 
-      _shareToSnapchat(backgroundFile, stickerFile, stickerOptions, attributionLink,promise);
+      _shareToSnapchat(backgroundFile, stickerFile, stickerOptions, attributionLink, captionText, media, promise);
     } catch (Error e){
       promise.reject(e.getMessage(), e);
     } catch (Exception e){
