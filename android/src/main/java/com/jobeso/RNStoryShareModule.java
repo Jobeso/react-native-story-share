@@ -49,6 +49,7 @@ public class RNStoryShareModule extends ReactContextBaseJavaModule {
   private static final String ERROR_NO_PERMISSIONS = "Permissions Missing";
   private static final String TYPE_ERROR = "Type Error";
   private static final String MEDIA_TYPE_IMAGE = "image/*";
+  private static final String MEDIA_TYPE_VIDEO = "video/*";
   private static final String PHOTO = "photo";
   private static final String VIDEO = "video";
 
@@ -172,16 +173,25 @@ public class RNStoryShareModule extends ReactContextBaseJavaModule {
     }
   }
 
-  private void _shareToInstagram(@Nullable File backgroundFile, @Nullable File stickerFile, @Nullable String attributionLink, @Nullable String backgroundBottomColor, @Nullable String backgroundTopColor, Promise promise){
+  private void _shareToInstagram(
+      @Nullable File backgroundFile,
+      @Nullable File stickerFile,
+      @Nullable String attributionLink,
+      @Nullable String backgroundBottomColor,
+      @Nullable String backgroundTopColor,
+      String media,
+      Promise promise
+  ){
     try {
       Intent intent = new Intent("com.instagram.share.ADD_TO_STORY");
       String providerName = this.getReactApplicationContext().getPackageName() + ".fileprovider";
       Activity activity = getCurrentActivity();
 
-      if(backgroundFile != null){
+      if (backgroundFile != null){
         Uri backgroundImageUri = FileProvider.getUriForFile(activity, providerName, backgroundFile);
 
-        intent.setDataAndType(backgroundImageUri, MEDIA_TYPE_IMAGE);
+        //intent.setDataAndType(backgroundImageUri, MEDIA_TYPE_IMAGE);
+        intent.setDataAndType(backgroundImageUri, media.equals(VIDEO) ? MEDIA_TYPE_VIDEO : MEDIA_TYPE_IMAGE);
       } else {
         intent.setType(MEDIA_TYPE_IMAGE);
       }
@@ -228,10 +238,15 @@ public class RNStoryShareModule extends ReactContextBaseJavaModule {
       String stickerAsset = config.hasKey("stickerAsset") ? config.getString("stickerAsset") : null;
       String attributionLink = config.hasKey("attributionLink") ? config.getString("attributionLink") : null;
       String type = config.hasKey("type") ? config.getString("type") : FILE;
+      String media = config.hasKey("media") ? config.getString("media") : PHOTO;
 
       if(backgroundAsset == null && stickerAsset == null){
         Error e = new Error("backgroundAsset and stickerAsset are not allowed to both be null.");
         promise.reject("Error in RNStory Share: No asset paths provided", e);
+      }
+
+      if (!media.equals(PHOTO) && !media.equals(VIDEO)) {
+        throw new Error(ERROR_TYPE_NOT_SUPPORTED);
       }
 
       File backgroundFile = null;
@@ -283,7 +298,7 @@ public class RNStoryShareModule extends ReactContextBaseJavaModule {
         }
       }
 
-      _shareToInstagram(backgroundFile, stickerFile, attributionLink, backgroundBottomColor, backgroundTopColor, promise);
+      _shareToInstagram(backgroundFile, stickerFile, attributionLink, backgroundBottomColor, backgroundTopColor, media, promise);
     } catch (NullPointerException e){
       promise.reject(e.getMessage(), e);
     } catch (Exception e){
