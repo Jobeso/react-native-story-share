@@ -371,7 +371,7 @@ public class RNStoryShareModule extends ReactContextBaseJavaModule {
       File backgroundFile = null;
       File stickerFile = null;
 
-      if(!type.equals(BASE64) && !type.equals(FILE)){
+      if (!type.equals(BASE64) && !type.equals(FILE)){
         throw new Error(ERROR_TYPE_NOT_SUPPORTED);
       }
 
@@ -379,11 +379,11 @@ public class RNStoryShareModule extends ReactContextBaseJavaModule {
         throw new Error(ERROR_TYPE_NOT_SUPPORTED);
       }
 
-      if(backgroundAsset == null && stickerAsset == null){
+      if (backgroundAsset == null && stickerAsset == null){
         throw new Error("backgroundAsset and stickerAsset are not allowed to both be null.");
       }
 
-      if(backgroundAsset != null){
+      if (backgroundAsset != null){
         if (type.equals(BASE64)){
           backgroundFile = getFileFromBase64String(backgroundAsset);
         } else {
@@ -395,7 +395,7 @@ public class RNStoryShareModule extends ReactContextBaseJavaModule {
         }
       }
 
-      if(stickerAsset != null){
+      if (stickerAsset != null){
         stickerFile = getFileFromBase64String(stickerAsset);
 
         if(stickerFile == null){
