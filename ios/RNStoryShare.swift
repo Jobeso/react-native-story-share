@@ -96,20 +96,20 @@ class RNStoryShare: NSObject{
             let attributionLink: String = RCTConvert.nsString(config["attributionLink"]) ?? ""
             
             var backgroundData: NSData? = nil
-            var stickerData:NSData? = nil
+            var stickerData: NSData? = nil
 
             if(backgroundAsset != nil){
                 let decodedData = try Data(contentsOf: backgroundAsset!,
                                            options: NSData.ReadingOptions(rawValue: 0))
                 
-                backgroundData = UIImage(data: decodedData)!.pngData()! as NSData
+                backgroundData = UIImagePNGRepresentation(UIImage(data: decodedData)!)! as NSData
             }
             
             if(stickerAsset != nil){
                 let decodedStickerData = try Data(contentsOf: stickerAsset!,
                                                   options: NSData.ReadingOptions(rawValue: 0))
                 
-                stickerData = UIImage(data: decodedStickerData)!.pngData()! as NSData
+                stickerData = UIImagePNGRepresentation(UIImage(data: decodedStickerData)!)! as NSData
             }
 
             _shareToInstagram(backgroundData,
