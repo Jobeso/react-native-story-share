@@ -102,14 +102,14 @@ class RNStoryShare: NSObject{
                 let decodedData = try Data(contentsOf: backgroundAsset!,
                                            options: NSData.ReadingOptions(rawValue: 0))
                 
-                backgroundData = UIImagePNGRepresentation(UIImage(data: decodedData)!)! as NSData
+                backgroundData = UIImage(data: decodedData)!.pngData()! as NSData
             }
             
             if(stickerAsset != nil){
                 let decodedStickerData = try Data(contentsOf: stickerAsset!,
                                                   options: NSData.ReadingOptions(rawValue: 0))
                 
-                stickerData = UIImagePNGRepresentation(UIImage(data: decodedStickerData)!)! as NSData
+                stickerData = UIImage(data: decodedStickerData)!.pngData()! as NSData
             }
 
             _shareToInstagram(backgroundData,
