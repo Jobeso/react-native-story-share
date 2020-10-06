@@ -139,6 +139,8 @@ RNStoryShare.isSnapchatAvailable()
         attributionLink: 'https://myproject.com',
         backgroundAsset: 'data:image/png;base64,iVBO...',
         stickerAsset: 'data:image/png;base64,iVBO...',
+	captionText: 'text exemple',
+	media: "photo" // or "video"
         stickerOptions: {
           height: 900,
           width: 900
@@ -197,4 +199,3 @@ Shares a file or base64 image as background, sticker or both to Snapchat. `stick
 
 ## Roadmap
 - Android file path support
-- Video support
