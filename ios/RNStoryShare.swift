@@ -96,7 +96,7 @@ class RNStoryShare: NSObject{
             let attributionLink: String = RCTConvert.nsString(config["attributionLink"]) ?? ""
             
             var backgroundData: NSData? = nil
-            var stickerData:NSData? = nil
+            var stickerData: NSData? = nil
 
             if(backgroundAsset != nil){
                 let decodedData = try Data(contentsOf: backgroundAsset!,
