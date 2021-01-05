@@ -38,6 +38,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import java.io.ByteArrayOutputStream;
+import java.net.URL;
+
 public class RNStoryShareModule extends ReactContextBaseJavaModule {
   private static final String FILE= "file";
   private static final String BASE64 = "base64";
@@ -173,6 +178,26 @@ public class RNStoryShareModule extends ReactContextBaseJavaModule {
     }
   }
 
+    public String getBase64(String imagePath) {
+        try {
+            boolean isPNG = imagePath.contains(".png") ? true : false;
+
+            InputStream in = new URL(imagePath).openConnection().getInputStream();
+
+            Bitmap bm = BitmapFactory.decodeStream(in);
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
+            Bitmap.CompressFormat compressFormat = isPNG ? Bitmap.CompressFormat.PNG : Bitmap.CompressFormat.JPEG;
+            bm.compress(compressFormat, 100, baos);
+
+            String base64prefix = String.format("data:image/%s;charset=utf-8;base64, ", isPNG ? "png" : "jpeg");
+            return base64prefix + Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
   private void _shareToInstagram(
       @Nullable File backgroundFile,
       @Nullable File stickerFile,
@@ -273,24 +298,23 @@ public class RNStoryShareModule extends ReactContextBaseJavaModule {
         }
 
         case FILE: {
-          throw new Error(ERROR_TYPE_NOT_SUPPORTED);
+          if (backgroundAsset != null) {
+            backgroundFile = getFileFromBase64String(getBase64(backgroundAsset));
 
-          // TODO implement
-//          if (ContextCompat.checkSelfPermission(getCurrentActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)
-//                  != PackageManager.PERMISSION_GRANTED) {
-//            throw new Error(ERROR_NO_PERMISSIONS);
-//          }
-//          if(backgroundAsset != null){
-//            File file = createFile(getFilePath());
-//            backgroundFile = new File(backgroundAsset);
-//
-//            copyFile(file, backgroundFile);
-//          }
-//
-//          if(stickerAsset != null){
-//            stickerFile = new File(stickerAsset);
-//          }
-//          break;
+            if (backgroundFile == null) {
+              throw new Error("Could not create file from Base64 in RNStoryShare");
+            }
+          }
+
+          if (stickerAsset != null) {
+            stickerFile = getFileFromBase64String(getBase64(stickerAsset));
+
+            if (stickerFile == null) {
+              throw new Error("Could not create file from Base64 in RNStoryShare");
+            }
+          }
+
+          break;
         }
 
         default: {
