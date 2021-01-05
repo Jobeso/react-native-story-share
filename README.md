@@ -7,7 +7,7 @@ Share your images to instagram and snapchat stories.
 | iOS | BASE64 | YES |
 |  | FILE | YES |
 | Android | BASE64 | YES |
-|  | FILE | NO |
+|  | FILE | YES |
 
 ## Getting started
 
@@ -196,6 +196,3 @@ type ShareConfigObject = {
 }
 ```
 Shares a file or base64 image as background, sticker or both to Snapchat. `stickerOptions` are only supported by Android.
-
-## Roadmap
-- Android file path support
