@@ -139,7 +139,7 @@ RNStoryShare.isSnapchatAvailable()
         attributionLink: 'https://myproject.com',
         backgroundAsset: 'data:image/png;base64,iVBO...',
         stickerAsset: 'data:image/png;base64,iVBO...',
-	captionText: 'text exemple',
+	captionText: 'text example',
 	media: "photo" // or "video"
         stickerOptions: {
           height: 900,
