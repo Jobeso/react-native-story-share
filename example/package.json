@@ -12,7 +12,7 @@
   "dependencies": {
     "ramda": "^0.26.1",
     "react": "16.8.3",
-    "react-native": "0.59.4",
+    "react-native": "0.62.3",
     "react-native-permissions": "^1.1.1",
     "react-native-story-share": "file:..",
     "react-native-view-shot": "^2.6.0"
