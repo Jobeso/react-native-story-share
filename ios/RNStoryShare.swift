@@ -197,7 +197,6 @@ class RNStoryShare: NSObject{
                 }
                 _shareToSnapchat(snap,stickerAsset: stickerAsset, attributionLink: attributionLink, type: type, resolve: resolve, reject: reject)
             } else if (config["media"] as? String == "video") {
-                print("Video")
                 if (backgroundAsset != nil) {
                     let video: SCSDKSnapVideo
                     if (type == BASE64){
