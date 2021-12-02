@@ -181,25 +181,37 @@ class RNStoryShare: NSObject{
             
             let snap: SCSDKSnapContent
             
-            if(backgroundAsset != nil) {
-                let photo: SCSDKSnapPhoto
-                
-                if(type == BASE64){
-                    let data = try Data(contentsOf: backgroundAsset!,
-                                        options: NSData.ReadingOptions(rawValue: 0))
-                    
-                    let snapImage = UIImage(data: data)
-                    photo = SCSDKSnapPhoto(image: snapImage!)
+            if (config["media"] as? String == "photo") {
+                if (backgroundAsset != nil) {
+                    let photo: SCSDKSnapPhoto
+                    if(type == BASE64){
+                        let data = try Data(contentsOf: backgroundAsset!, options: NSData.ReadingOptions(rawValue: 0))
+                        let snapImage = UIImage(data: data)
+                        photo = SCSDKSnapPhoto(image: snapImage!)
+                    } else {
+                        photo = SCSDKSnapPhoto(imageUrl: backgroundAsset!)
+                    }
+                    snap = SCSDKPhotoSnapContent(snapPhoto: photo)
                 } else {
-                    photo = SCSDKSnapPhoto(imageUrl: backgroundAsset!)
+                    snap = SCSDKNoSnapContent()
                 }
-                
-                snap = SCSDKPhotoSnapContent(snapPhoto: photo)
-            }else{
-                snap = SCSDKNoSnapContent()
+                _shareToSnapchat(snap,stickerAsset: stickerAsset, attributionLink: attributionLink, type: type, resolve: resolve, reject: reject)
+            } else if (config["media"] as? String == "video") {
+                print("Video")
+                if (backgroundAsset != nil) {
+                    let video: SCSDKSnapVideo
+                    if (type == BASE64){
+                        fatalError("Not yet implemented")
+                    } else {
+                        video = SCSDKSnapVideo(videoUrl: backgroundAsset!)
+                    }
+                    snap = SCSDKVideoSnapContent(snapVideo: video)
+                } else {
+                    snap = SCSDKNoSnapContent()
+                }
+                _shareToSnapchat(snap,stickerAsset: stickerAsset, attributionLink: attributionLink, type: type, resolve: resolve, reject: reject)
             }
             
-            _shareToSnapchat(snap,stickerAsset: stickerAsset, attributionLink: attributionLink, type: type, resolve: resolve, reject: reject)
         } catch {
             reject(domain, error.localizedDescription, error)
         }
