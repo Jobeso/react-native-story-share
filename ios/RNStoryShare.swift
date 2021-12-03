@@ -123,7 +123,11 @@ class RNStoryShare: NSObject{
             } else if (config["media"] as? String == "video") {
                 if let assetPath = config["backgroundAsset"] as? String, let url = URL(string: "instagram://library?AssetPath=" + assetPath) {
                     if UIApplication.shared.canOpenURL(url) {
-                        UIApplication.shared.open(url, options: [:], completionHandler:nil)
+                        if #available(iOS 10.0, *) {
+                            UIApplication.shared.open(url, options: [:], completionHandler:nil)
+                        } else {
+                            // Fallback on earlier versions
+                        }
                     }
                 }
             }
