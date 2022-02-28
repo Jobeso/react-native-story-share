@@ -180,26 +180,35 @@ class RNStoryShare: NSObject{
             let type: String = RCTConvert.nsString(config["type"] ?? FILE)
             
             let snap: SCSDKSnapContent
+            let mediaType: String = config["media"] as! String;
+            
+            if(mediaType == "video"){
+                let video: SCSDKSnapVideo
+                video = SCSDKSnapVideo(videoUrl: backgroundAsset!)
+                snap = SCSDKVideoSnapContent(snapVideo: video);
+                _shareToSnapchat(snap,stickerAsset: stickerAsset, attributionLink: attributionLink, type: type, resolve: resolve, reject: reject)
+            }else{
             
             if(backgroundAsset != nil) {
                 let photo: SCSDKSnapPhoto
-                
+
                 if(type == BASE64){
                     let data = try Data(contentsOf: backgroundAsset!,
                                         options: NSData.ReadingOptions(rawValue: 0))
-                    
+
                     let snapImage = UIImage(data: data)
                     photo = SCSDKSnapPhoto(image: snapImage!)
                 } else {
                     photo = SCSDKSnapPhoto(imageUrl: backgroundAsset!)
                 }
-                
+
                 snap = SCSDKPhotoSnapContent(snapPhoto: photo)
             }else{
                 snap = SCSDKNoSnapContent()
             }
-            
+
             _shareToSnapchat(snap,stickerAsset: stickerAsset, attributionLink: attributionLink, type: type, resolve: resolve, reject: reject)
+            }
         } catch {
             reject(domain, error.localizedDescription, error)
         }
