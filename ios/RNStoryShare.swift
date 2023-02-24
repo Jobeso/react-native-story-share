@@ -178,6 +178,7 @@ class RNStoryShare: NSObject{
             let stickerAsset = RCTConvert.nsurl(config["stickerAsset"])
             let attributionLink: String = RCTConvert.nsString(config["attributionLink"]) ?? ""
             let type: String = RCTConvert.nsString(config["type"] ?? FILE)
+            let captionText: String = RCTConvert.nsString(config["captionText"]) ?? ""
             
             let snap: SCSDKSnapContent
             
@@ -195,8 +196,10 @@ class RNStoryShare: NSObject{
                 }
                 
                 snap = SCSDKPhotoSnapContent(snapPhoto: photo)
+                snap.caption = captionText
             }else{
                 snap = SCSDKNoSnapContent()
+                snap.caption = captionText
             }
             
             _shareToSnapchat(snap,stickerAsset: stickerAsset, attributionLink: attributionLink, type: type, resolve: resolve, reject: reject)
