@@ -13,10 +13,10 @@ buildscript {
 apply plugin: 'com.android.library'
 
 def _ext = rootProject.ext;
-def _compileSdkVersion = 31;
-def _buildToolsVersion = '31.0.0';
-def _minSdkVersion = 26;
-def _targetSdkVersion = 31;
+def _compileSdkVersion = _ext.has('compileSdkVersion') ? _ext.compileSdkVersion : 31;
+def _buildToolsVersion = _ext.has('buildToolsVersion') ? _ext.buildToolsVersion : '31.0.0';
+def _minSdkVersion = _ext.has('minSdkVersion') ? _ext.minSdkVersion : 26;
+def _targetSdkVersion = _ext.has('targetSdkVersion') ? _ext.targetSdkVersion : 31;
 
 android {
     compileSdkVersion _compileSdkVersion
