@@ -1,6 +1,6 @@
 {
   "name": "react-native-story-share",
-  "version": "0.7.0",
+  "version": "0.6.0",
   "description": "share your images to instagram and snapchat stories",
   "main": "index.js",
   "scripts": {

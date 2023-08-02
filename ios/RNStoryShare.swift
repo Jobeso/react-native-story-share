@@ -89,48 +89,36 @@ class RNStoryShare: NSObject{
                 return reject("No Assets", "Background Asset and Sticker Asset are nil", error)
             }
 
-            if (config["media"] as? String == "photo") {
-                let backgroundAsset = RCTConvert.nsurl(config["backgroundAsset"])
-                let backgroundBottomColor = RCTConvert.nsString(config["backgroundBottomColor"]) ?? ""
-                let backgroundTopColor = RCTConvert.nsString(config["backgroundTopColor"]) ?? ""
-                let stickerAsset = RCTConvert.nsurl(config["stickerAsset"])
-                let attributionLink: String = RCTConvert.nsString(config["attributionLink"]) ?? ""
-                
-                var backgroundData: NSData? = nil
-                var stickerData: NSData? = nil
+            let backgroundAsset = RCTConvert.nsurl(config["backgroundAsset"])
+            let backgroundBottomColor = RCTConvert.nsString(config["backgroundBottomColor"]) ?? ""
+            let backgroundTopColor = RCTConvert.nsString(config["backgroundTopColor"]) ?? ""
+            let stickerAsset = RCTConvert.nsurl(config["stickerAsset"])
+            let attributionLink: String = RCTConvert.nsString(config["attributionLink"]) ?? ""
+            
+            var backgroundData: NSData? = nil
+            var stickerData: NSData? = nil
 
-                if(backgroundAsset != nil){
-                    let decodedData = try Data(contentsOf: backgroundAsset!,
-                                               options: NSData.ReadingOptions(rawValue: 0))
-                    
-                    backgroundData = UIImage(data: decodedData)!.pngData()! as NSData
-                }
+            if(backgroundAsset != nil){
+                let decodedData = try Data(contentsOf: backgroundAsset!,
+                                           options: NSData.ReadingOptions(rawValue: 0))
                 
-                if(stickerAsset != nil){
-                    let decodedStickerData = try Data(contentsOf: stickerAsset!,
-                                                      options: NSData.ReadingOptions(rawValue: 0))
-                    
-                    stickerData = UIImage(data: decodedStickerData)!.pngData()! as NSData
-                }
-
-                _shareToInstagram(backgroundData,
-                                  stickerData: stickerData,
-                                  attributionLink: attributionLink,
-                                  backgroundBottomColor: backgroundBottomColor,
-                                  backgroundTopColor: backgroundTopColor,
-                                  resolve: resolve,
-                                  reject: reject)
-            } else if (config["media"] as? String == "video") {
-                if let assetPath = config["backgroundAsset"] as? String, let url = URL(string: "instagram://library?AssetPath=" + assetPath) {
-                    if UIApplication.shared.canOpenURL(url) {
-                        if #available(iOS 10.0, *) {
-                            UIApplication.shared.open(url, options: [:], completionHandler:nil)
-                        } else {
-                            // Fallback on earlier versions
-                        }
-                    }
-                }
+                backgroundData = UIImage(data: decodedData)!.pngData()! as NSData
             }
+            
+            if(stickerAsset != nil){
+                let decodedStickerData = try Data(contentsOf: stickerAsset!,
+                                                  options: NSData.ReadingOptions(rawValue: 0))
+                
+                stickerData = UIImage(data: decodedStickerData)!.pngData()! as NSData
+            }
+
+            _shareToInstagram(backgroundData,
+                              stickerData: stickerData,
+                              attributionLink: attributionLink,
+                              backgroundBottomColor: backgroundBottomColor,
+                              backgroundTopColor: backgroundTopColor,
+                              resolve: resolve,
+                              reject: reject)
     
         } catch {
             reject(domain, error.localizedDescription, error)
@@ -190,45 +178,28 @@ class RNStoryShare: NSObject{
             let stickerAsset = RCTConvert.nsurl(config["stickerAsset"])
             let attributionLink: String = RCTConvert.nsString(config["attributionLink"]) ?? ""
             let type: String = RCTConvert.nsString(config["type"] ?? FILE)
-            let captionText: String = RCTConvert.nsString(config["captionText"]) ?? ""
             
             let snap: SCSDKSnapContent
             
-            if (config["media"] as? String == "photo") {
-                if (backgroundAsset != nil) {
-                    let photo: SCSDKSnapPhoto
-                    if(type == BASE64){
-                        let data = try Data(contentsOf: backgroundAsset!, options: NSData.ReadingOptions(rawValue: 0))
-                        let snapImage = UIImage(data: data)
-                        photo = SCSDKSnapPhoto(image: snapImage!)
-                    } else {
-                        photo = SCSDKSnapPhoto(imageUrl: backgroundAsset!)
-                    }
-                    snap = SCSDKPhotoSnapContent(snapPhoto: photo)
+            if(backgroundAsset != nil) {
+                let photo: SCSDKSnapPhoto
+                
+                if(type == BASE64){
+                    let data = try Data(contentsOf: backgroundAsset!,
+                                        options: NSData.ReadingOptions(rawValue: 0))
+                    
+                    let snapImage = UIImage(data: data)
+                    photo = SCSDKSnapPhoto(image: snapImage!)
                 } else {
-                    snap = SCSDKNoSnapContent()
-                }                
+                    photo = SCSDKSnapPhoto(imageUrl: backgroundAsset!)
+                }
+                
                 snap = SCSDKPhotoSnapContent(snapPhoto: photo)
-                snap.caption = captionText
             }else{
                 snap = SCSDKNoSnapContent()
-                snap.caption = captionText
-                _shareToSnapchat(snap,stickerAsset: stickerAsset, attributionLink: attributionLink, type: type, resolve: resolve, reject: reject)
-            } else if (config["media"] as? String == "video") {
-                if (backgroundAsset != nil) {
-                    let video: SCSDKSnapVideo
-                    if (type == BASE64){
-                        fatalError("Not yet implemented")
-                    } else {
-                        video = SCSDKSnapVideo(videoUrl: backgroundAsset!)
-                    }
-                    snap = SCSDKVideoSnapContent(snapVideo: video)
-                } else {
-                    snap = SCSDKNoSnapContent()
-                }
-                _shareToSnapchat(snap,stickerAsset: stickerAsset, attributionLink: attributionLink, type: type, resolve: resolve, reject: reject)
             }
             
+            _shareToSnapchat(snap,stickerAsset: stickerAsset, attributionLink: attributionLink, type: type, resolve: resolve, reject: reject)
         } catch {
             reject(domain, error.localizedDescription, error)
         }
