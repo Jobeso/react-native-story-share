@@ -1541,8 +1541,8 @@ decamelize@^1.1.1, decamelize@^1.2.0:
   resolved "https://registry.yarnpkg.com/decamelize/-/decamelize-1.2.0.tgz#f6534d15148269b20352e7bee26f501f9a191290"
 
 decode-uri-component@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/decode-uri-component/-/decode-uri-component-0.2.0.tgz#eb3913333458775cb84cd1a1fae062106bb87545"
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/decode-uri-component/-/decode-uri-component-0.2.2.tgz#e69dbe25d37941171dd540e024c444cd5188e1e9"
 
 deep-extend@^0.6.0:
   version "0.6.0"
@@ -4286,7 +4286,7 @@ react-native-permissions@^1.1.1:
   resolved "https://registry.yarnpkg.com/react-native-permissions/-/react-native-permissions-1.1.1.tgz#4876004681ff8556454613d85249b01baff9b35b"
 
 "react-native-story-share@file:..":
-  version "0.5.0"
+  version "0.6.0"
 
 react-native-view-shot@^2.6.0:
   version "2.6.0"
